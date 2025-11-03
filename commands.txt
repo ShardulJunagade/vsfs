@@ -1,0 +1,24 @@
+gcc -I . testcases/testcase0.c simplefs-ops.c simplefs-disk.c -o testcase0
+./testcase0
+
+gcc -I . testcases/testcase1.c simplefs-ops.c simplefs-disk.c -o testcase1
+./testcase1
+
+gcc -I . testcases/testcase2.c simplefs-ops.c simplefs-disk.c -o testcase2
+./testcase2
+
+gcc -I . testcases/testcase3.c simplefs-ops.c simplefs-disk.c -o testcase3
+./testcase3
+
+gcc -I . testcases/testcase4.c simplefs-ops.c simplefs-disk.c -o testcase4
+./testcase4
+
+gcc -I . testcases/testcase5.c simplefs-ops.c simplefs-disk.c -o testcase5
+./testcase5
+
+gcc -I . testcases/testcase6.c simplefs-ops.c simplefs-disk.c -o testcase6
+./testcase6
+
+gcc -I . testcases/testcase7.c simplefs-ops.c simplefs-disk.c -o testcase7
+./testcase7
+
