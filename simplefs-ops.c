@@ -7,9 +7,12 @@ int simplefs_create(char *filename){
 	*/
     // Check if file already exists
     struct inode_t *inode = (struct inode_t *)malloc(sizeof(struct inode_t));
+    char target_name[MAX_NAME_STRLEN];
+    memset(target_name, 0, sizeof(target_name));
+    strncpy(target_name, filename, MAX_NAME_STRLEN);
     for(int i = 0; i < NUM_INODES; i++){
         simplefs_readInode(i, inode);
-        if(inode->status == INODE_IN_USE && strcmp(inode->name, filename) == 0){
+        if(inode->status == INODE_IN_USE && strncmp(inode->name, target_name, MAX_NAME_STRLEN) == 0){
             free(inode);
             return -1; // File already exists
         }
@@ -45,11 +48,14 @@ void simplefs_delete(char *filename){
 	    delete file with name `filename` from disk
 	*/
     struct inode_t *inode = (struct inode_t *)malloc(sizeof(struct inode_t));
+    char target_name[MAX_NAME_STRLEN];
+    memset(target_name, 0, sizeof(target_name));
+    strncpy(target_name, filename, MAX_NAME_STRLEN);
     
     // Find the inode for the file
     for(int i = 0; i < NUM_INODES; i++){
         simplefs_readInode(i, inode);
-        if(inode->status == INODE_IN_USE && strcmp(inode->name, filename) == 0){
+        if(inode->status == INODE_IN_USE && strncmp(inode->name, target_name, MAX_NAME_STRLEN) == 0){
             // Free all data blocks
             for(int j = 0; j < MAX_FILE_SIZE; j++){
                 if(inode->direct_blocks[j] != -1){
@@ -72,12 +78,15 @@ int simplefs_open(char *filename){
 	    open file with name `filename`
 	*/
     struct inode_t *inode = (struct inode_t *)malloc(sizeof(struct inode_t));
+    char target_name[MAX_NAME_STRLEN];
+    memset(target_name, 0, sizeof(target_name));
+    strncpy(target_name, filename, MAX_NAME_STRLEN);
     
     // Find the inode for the file
     int inode_num = -1;
     for(int i = 0; i < NUM_INODES; i++){
         simplefs_readInode(i, inode);
-        if(inode->status == INODE_IN_USE && strcmp(inode->name, filename) == 0){
+        if(inode->status == INODE_IN_USE && strncmp(inode->name, target_name, MAX_NAME_STRLEN) == 0){
             inode_num = i;
             break;
         }
